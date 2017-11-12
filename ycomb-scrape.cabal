@@ -1,7 +1,7 @@
 name:                ycomb-scrape
 version:             0.1.0.0
--- synopsis:
--- description:
+synopsis:	     Completion of a Haskell coding challenge
+description:	     Scrape and filter summary info from news.ycombinator.com
 homepage:            https://github.com/betchart/ycomb-scrape#readme
 license:             BSD3
 license-file:        LICENSE
