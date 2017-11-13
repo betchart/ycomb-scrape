@@ -34,12 +34,15 @@ processEntries es = do
                "ordered by number of points decreasing:\n"
   printEntries tShortsByPoints
 
+    where (tLongsByComments, tShortsByPoints) = requestedFilters es
+
+requestedFilters :: [EntryYC] -> ([EntryYC],[EntryYC])
+requestedFilters es = (tLongsByComments, tShortsByPoints)
     where
       titleG5 = (>5) . length . words . title
       (tLongs, tShorts) = partition titleG5 es
       tLongsByComments =  reverse . sortBy (compare `on` commented) $ tLongs
       tShortsByPoints =  reverse . sortBy (compare `on` points) $ tShorts
-
 
 printEntries :: [EntryYC] -> IO ()
 printEntries = putStrLn . unlines . map show
