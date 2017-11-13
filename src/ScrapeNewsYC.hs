@@ -11,10 +11,10 @@ import Text.HTML.Scalpel
 import Control.Applicative
 import Control.Monad
 
-data EntryYC = EntryYC { rank :: Int
-                       , title :: String
-                       , points :: Int
-                       , commented :: Int
+data EntryYC = EntryYC { rank :: Int      -- ^ The number of the order
+                       , title :: String  -- ^ Title
+                       , points :: Int    -- ^ Amount of points
+                       , commented :: Int -- ^ Amount of comments
                        } deriving (Show)
 
 entriesYC :: Scraper String [EntryYC]
