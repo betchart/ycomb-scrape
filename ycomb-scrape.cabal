@@ -20,3 +20,14 @@ executable ycomb-scrape
   build-depends:       base >= 4.7 && < 5
                      , scalpel == 0.5.1
   other-modules:       ScrapeNewsYC
+
+
+Test-Suite tests
+  Type:              exitcode-stdio-1.0
+  hs-source-dirs:    src
+  main-is:           Tests.hs
+  build-depends:     base
+                   , HTF
+                   , scalpel == 0.5.1
+  other-modules:     ScrapeNewsYC
+  default-language:  Haskell2010
