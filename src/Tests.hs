@@ -8,12 +8,22 @@ import ProcessNewsYC (requestedFilters)
 main = htfMain htf_thisModulesTests
 
 prop_repeatable :: [(Int,String,Int,Int)] -> Bool
-prop_repeatable abcds = all id checks
+prop_repeatable abcds = and checks
     where es = map makeEntryYC abcds
           (a,b) = requestedFilters es
           (a',b') = requestedFilters a
           (a'',b'') = requestedFilters b
           checks = [a' == a
-                   ,b'== []
                    ,b''== b
-                   ,a''== [] ]
+                   ,null b'
+                   ,null a'' ]
+
+prop_moreThanFiveWords :: [(Int,String,Int,Int)] -> Bool
+prop_moreThanFiveWords abcds =
+    all ((>5).length.words.title) longs
+        where longs = fst.requestedFilters.map makeEntryYC $ abcds
+
+prop_fiveWordsOrFewer :: [(Int,String,Int,Int)] -> Bool
+prop_fiveWordsOrFewer abcds =
+    all ((<=5).length.words.title) shorts
+        where shorts = snd.requestedFilters.map makeEntryYC $ abcds
