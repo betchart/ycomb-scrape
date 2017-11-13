@@ -1,12 +1,16 @@
 {-# LANGUAGE OverloadedStrings #-}
 module ScrapeNewsYC ( EntryYC
+                    , rank
+                    , title
+                    , points
+                    , commented
                     , entriesYC
                     ) where
 
 import Text.HTML.Scalpel
 import Control.Applicative
 import Control.Monad
-    
+
 data EntryYC = EntryYC { rank :: Int
                        , title :: String
                        , points :: Int
@@ -26,7 +30,7 @@ zipEntriesYC xs [] = map snd xs
 zipEntriesYC (x:xs) (y:ys) =
     if ix == iy
     then ez : zipEntriesYC xs ys
-    else ex : zipEntriesYC xs (y : ys)
+    else ex : zipEntriesYC xs (y:ys)
     where ez = EntryYC (rank ex) (title ex) (points ey) (commented ey)
           (ix,ex) = x
           (iy,ey) = y
@@ -52,7 +56,7 @@ nRank :: String       -- ^ Has the form "NN."
       -> Int          -- ^ NN parsed as int
 nRank s = read n :: Int
     where n = reverse . drop 1 $ reverse s
-                    
+
 nComments :: String     -- ^ Has the form "NN\160comments" or "discuss"
           -> Int        -- ^ NN parsed as int
 nComments "discuss" = 0
@@ -66,4 +70,5 @@ nPoints s = read n :: Int
 
 hrefToId :: String     -- ^ href has the form "item?id=NN"
          -> Int        -- ^ NN parsed as int
-hrefToId h = read . drop 1 .snd $ break (=='=') h :: Int
+hrefToId h = read id :: Int
+    where id = drop 1 . snd $ break (=='=') h
