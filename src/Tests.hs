@@ -9,6 +9,8 @@ import ProcessNewsYC (requestedFilters)
 
 main = htfMain htf_thisModulesTests
 
+test_empty = assertEqual ([] :: [EntryYC], [] :: [EntryYC]) (requestedFilters [])
+
 prop_repeatable :: [(Int,String,Int,Int)] -> Bool
 prop_repeatable abcds = and checks
     where es = map makeEntryYC abcds
