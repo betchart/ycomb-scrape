@@ -44,8 +44,8 @@ requestedFilters es = (tLongsByComments, tShortsByPoints)
     where
       titleG5 = (>5) . length . words . title
       (tLongs, tShorts) = partition titleG5 es
-      tLongsByComments =  sortBy (compare `on` commented) $ tLongs
-      tShortsByPoints =  sortBy (compare `on` points) $ tShorts
+      tLongsByComments =  sortBy (compare `on` commented) tLongs
+      tShortsByPoints =  sortBy (compare `on` points) tShorts
 
 printEntries :: [EntryYC] -> IO ()
 printEntries = putStrLn . unlines . map show
