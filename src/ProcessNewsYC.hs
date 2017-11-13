@@ -1,4 +1,5 @@
 module ProcessNewsYC ( processNewsYC
+                     , requestedFilters
                       ) where
 
 import Text.HTML.Scalpel (scrapeURL)

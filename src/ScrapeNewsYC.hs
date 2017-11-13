@@ -5,6 +5,7 @@ module ScrapeNewsYC ( EntryYC
                     , points
                     , commented
                     , entriesYC
+                    , makeEntryYC
                     ) where
 
 import Text.HTML.Scalpel
@@ -15,7 +16,10 @@ data EntryYC = EntryYC { rank :: Int      -- ^ The number of the order
                        , title :: String  -- ^ Title
                        , points :: Int    -- ^ Amount of points
                        , commented :: Int -- ^ Amount of comments
-                       } deriving (Show)
+                       } deriving (Show, Eq)
+
+makeEntryYC :: (Int,String,Int,Int) -> EntryYC
+makeEntryYC (a, b, c, d) = EntryYC {rank=a, title=b, points=c, commented=d}
 
 entriesYC :: Scraper String [EntryYC]
 entriesYC = do hdlns <- headlinesYC
