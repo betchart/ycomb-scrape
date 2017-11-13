@@ -24,21 +24,21 @@ processEntries es = do
                " entries scraped from " ++ url ++ "\n"
   printEntries es
 
-  putStrLn $ "\nSubset of " ++ (show.length$ tShortsByComments) ++
+  putStrLn $ "\nSubset of " ++ (show.length$ tLongsByComments) ++
                " entries with more than 5 words in title,\n" ++
                "ordered by number of comments decreasing:\n"
-  printEntries tShortsByComments
+  printEntries tLongsByComments
 
-  putStrLn $ "\nSubset of " ++ (show.length$ tLongsByPoints) ++
+  putStrLn $ "\nSubset of " ++ (show.length$ tShortsByPoints) ++
                " entries with 5 or fewer words in title, \n" ++
                "ordered by number of points decreasing:\n"
-  printEntries tLongsByPoints
+  printEntries tShortsByPoints
 
     where
       titleG5 = (>5) . length . words . title
-      (tShorts, tLongs) = partition titleG5 es
-      tShortsByComments =  reverse . sortBy (compare `on` commented) $ tShorts
-      tLongsByPoints =  reverse . sortBy (compare `on` points) $ tLongs
+      (tLongs, tShorts) = partition titleG5 es
+      tLongsByComments =  reverse . sortBy (compare `on` commented) $ tLongs
+      tShortsByPoints =  reverse . sortBy (compare `on` points) $ tShorts
 
 
 printEntries :: [EntryYC] -> IO ()
